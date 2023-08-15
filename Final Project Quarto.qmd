@@ -1,0 +1,46 @@
+---
+title: "Final Project Quarto"
+author: "Jessica Varnell"
+format: html
+editor: visual
+theme: sketchy
+execute: 
+  cache: true
+---
+
+## Descriptive Statistics
+
+This dataset includes information on all participants (survivalists) that have been a part of the Netflix series "Alone".
+
+```{r}
+#| include: false
+library(gtsummary)
+library(tidyverse)
+library(alone)
+library(tidytuesdayR)
+tuesdata <- tidytuesdayR::tt_load(2023, week = 4)
+alone <- tuesdata$survivalists
+```
+
+```{r}
+#| echo: false
+#| label: tbl-one
+#| tbl-cap: "Descriptive Statistics"
+#| warning: false
+table1 <- tbl_summary(alone, by = gender,
+include = c(age, gender, country, days_lasted, medically_evacuated),
+label = list(
+  age ~ "Age",
+  gender ~ "Gender",
+  country ~ "Country of Residence",
+  days_lasted ~ "# of Days Lasted",
+  medically_evacuated ~ "Medically Evacuated?"
+),
+missing_text = "Missing") %>% 
+  add_p(test=list(all_continuous() ~ "t.test",
+                  all_categorical() ~ "chisq.test")) %>% 
+  bold_labels() %>% 
+  modify_header(label="**Variable**", p.value = "**p**")
+
+table1
+```
