@@ -27,5 +27,3 @@ standarddev <- function(x){
 
 standarddev(alone$age)
 standarddev(alone$days_lasted)
-
-#adding a note
