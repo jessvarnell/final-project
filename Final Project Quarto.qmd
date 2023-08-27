@@ -8,7 +8,7 @@ execute:
   cache: true
 ---
 
-This data set includes information on all participants (survivalists) that have been a part of the Netflix series "Alone".
+This data set includes information on all participants (survivalists) that have been a part of the Netflix series "Alone". This data comes from an R package called "tidytuesdayR", part of a weekly data project organized by the R4DS Online Learning Community.
 
 ## Descriptive Statistics
 
@@ -45,11 +45,18 @@ missing_text = "N/A - Winner") %>%
 
 table1
 
+standarddev <- function(x){
+  output <- sd(x)
+  return(output)
+}
+
 ```
 
 94 survivalists have participated in "Alone" so far. 20 participants were female and 74 participants were male. Male participants had a mean age of `r gtsummary::inline_text(table1, variable="age", column="Male")` while female participants had a mean age of `r gtsummary::inline_text(table1, variable="age", column="Female")`. All season winners so far have been male (`r gtsummary::inline_text(table1, variable="reason_category", level="N/A - Winner", column="Male")`).
 
 A greater percentage of women (`r gtsummary::inline_text(table1, variable="medically_evacuated", column="Female")`) have been medically evacuated than men (`r gtsummary::inline_text(table1, variable="medically_evacuated", column="Male")`). A greater percentage of men (`r gtsummary::inline_text(table1, variable="reason_category",level = "Family / personal", column="Male")`) cited family/personal reasons for tapping out than women (`r gtsummary::inline_text(table1, variable="reason_category", level= "Family / personal", column="Female")`).
+
+The standard deviation of days lasted was `r round(standarddev(alone$days_lasted))`.
 
 A more in-depth look at days lasted can be found in @fig-1, a plot of the relationship between days lasted and place finished.
 
@@ -68,11 +75,15 @@ table2 <- tbl_uvregression(alone, x=gender, include =
 table2
 ```
 
+This regression table shows the relationships between the predictor variable gender and outcome variables age, place finished, and days lasted. To see descriptive statistics relating to these variables and more, see @tbl-one.
+
 ## Figure
 
 ```{r}
 #| fig-cap: "Place finished by Days lasted"
 #| label: fig-1
 #| echo: false
+
 plot(x=alone$days_lasted, y=alone$result, xlab="Days Lasted", ylab = "Place Finished")
+
 ```
