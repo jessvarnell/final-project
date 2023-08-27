@@ -8,9 +8,9 @@ execute:
   cache: true
 ---
 
-## Descriptive Statistics
+This data set includes information on all participants (survivalists) that have been a part of the Netflix series "Alone".
 
-This dataset includes information on all participants (survivalists) that have been a part of the Netflix series "Alone".
+## Descriptive Statistics
 
 ```{r}
 #| include: false
@@ -28,19 +28,35 @@ alone <- tuesdata$survivalists
 #| tbl-cap: "Descriptive Statistics"
 #| warning: false
 table1 <- tbl_summary(alone, by = gender,
-include = c(age, gender, country, days_lasted, medically_evacuated),
+include = c(age, gender, country, days_lasted, reason_category, medically_evacuated),
 label = list(
   age ~ "Age",
   gender ~ "Gender",
   country ~ "Country of Residence",
   days_lasted ~ "# of Days Lasted",
+  reason_category ~ "Reason for Tapping Out - Category",
   medically_evacuated ~ "Medically Evacuated?"
 ),
-missing_text = "Missing") %>% 
+missing_text = "N/A - Winner") %>% 
   add_p(test=list(all_continuous() ~ "t.test",
                   all_categorical() ~ "chisq.test")) %>% 
   bold_labels() %>% 
   modify_header(label="**Variable**", p.value = "**p**")
 
 table1
+```
+
+## Regression Table
+
+```{r}
+#| echo: false
+#| label: tbl-two
+#| tbl-cap: "Linear Regression"
+table2 <- tbl_uvregression(alone, x=gender, include = 
+                   c(age, days_lasted, result), label= list(
+                   age ~ "Age",
+                   days_lasted ~ "Days Lasted",
+                   result ~ "Place Finished"
+                   ), method=lm)
+table2
 ```
