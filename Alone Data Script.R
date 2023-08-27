@@ -4,27 +4,26 @@ install.packages("alone")
 
 install.packages("tidytuesdayR")
 
+library(alone)
+library(tidytuesdayR)
+library(gtsummary)
+library(here)
+
+
+library(renv)
+init()
+
 tuesdata <- tidytuesdayR::tt_load(2023, week = 4)
 
 alone <- tuesdata$survivalists
 
-mean(alone$age)
-median(alone$days_lasted)
-mean(alone$days_lasted)
 
-head(alone)
+## New Function
 
-library(alone)
-library(tidytuesdayR)
-library(gtsummary)
+standarddev <- function(x){
+  output <- sd(x)
+  return(output)
+}
 
-tbl_summary(alone, include = c(age, gender, country, days_lasted),
-label= list(
-  age ~ "Age",
-  gender ~ "Gender",
-  country ~ "Country",
-  days_lasted ~ "Days lasted"
-))
-
-library(renv)
-init()
+standarddev(alone$age)
+standarddev(alone$days_lasted)
