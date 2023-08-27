@@ -44,7 +44,14 @@ missing_text = "N/A - Winner") %>%
   modify_header(label="**Variable**", p.value = "**p**")
 
 table1
+
 ```
+
+94 survivalists have participated in "Alone" so far. 20 participants were female and 74 participants were male. Male participants had a mean age of `r gtsummary::inline_text(table1, variable="age", column="Male")` while female participants had a mean age of `r gtsummary::inline_text(table1, variable="age", column="Female")`. All season winners so far have been male (`r gtsummary::inline_text(table1, variable="reason_category", level="N/A - Winner", column="Male")`).
+
+A greater percentage of women (`r gtsummary::inline_text(table1, variable="medically_evacuated", column="Female")`) have been medically evacuated than men (`r gtsummary::inline_text(table1, variable="medically_evacuated", column="Male")`). A greater percentage of men (`r gtsummary::inline_text(table1, variable="reason_category",level = "Family / personal", column="Male")`) cited family/personal reasons for tapping out than women (`r gtsummary::inline_text(table1, variable="reason_category", level= "Family / personal", column="Female")`).
+
+A more in-depth look at days lasted can be found in @fig-1, a plot of the relationship between days lasted and place finished.
 
 ## Regression Table
 
@@ -59,4 +66,13 @@ table2 <- tbl_uvregression(alone, x=gender, include =
                    result ~ "Place Finished"
                    ), method=lm)
 table2
+```
+
+## Figure
+
+```{r}
+#| fig-cap: "Place finished by Days lasted"
+#| label: fig-1
+#| echo: false
+plot(x=alone$days_lasted, y=alone$result, xlab="Days Lasted", ylab = "Place Finished")
 ```
