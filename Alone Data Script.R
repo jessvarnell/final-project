@@ -12,6 +12,10 @@ mean(alone$age)
 median(alone$days_lasted)
 mean(alone$days_lasted)
 
+head(alone)
+
+library(alone)
+library(tidytuesdayR)
 library(gtsummary)
 
 tbl_summary(alone, include = c(age, gender, country, days_lasted),
@@ -21,3 +25,6 @@ label= list(
   country ~ "Country",
   days_lasted ~ "Days lasted"
 ))
+
+library(renv)
+init()
