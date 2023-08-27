@@ -1,22 +1,12 @@
 #Alone data package
 
-install.packages("alone")
-
-install.packages("tidytuesdayR")
-
-library(alone)
-library(tidytuesdayR)
 library(gtsummary)
 library(here)
-
 
 library(renv)
 init()
 
-tuesdata <- tidytuesdayR::tt_load(2023, week = 4)
-
-alone <- tuesdata$survivalists
-
+here::here("alone data", "survivalists.csv")
 
 ## New Function
 
