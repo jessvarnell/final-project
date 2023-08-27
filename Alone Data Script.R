@@ -1,12 +1,9 @@
-#Alone data package
+#Getting started
 
 library(gtsummary)
 library(here)
 
-library(renv)
-init()
-
-here::here("alone data", "survivalists.csv")
+alone <- read.csv(here::here("alone data", "survivalists.csv"))
 
 ## New Function
 

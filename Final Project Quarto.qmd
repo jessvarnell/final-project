@@ -15,7 +15,7 @@ This data set includes information on all participants (survivalists) that have 
 ```{r}
 #| include: false
 library(gtsummary)
-library(tidyverse)
+library(here)
 alone <- read.csv(here::here("alone data", "survivalists.csv"))
 ```
 
